@@ -1,0 +1,178 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+:root {
+  --bg: #faf9f6;
+  --text: #1b1b18;
+  --text-secondary: #6b6b63;
+  --border: #e4e2da;
+  --accent: #2f6f63;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+  --serif: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+  --mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 17.5px;
+  line-height: 1.8;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 사이트 헤더 */
+.site-header {
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.site-header .brand {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.site-header nav {
+  display: flex;
+  gap: 20px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.site-header nav a {
+  color: var(--text-secondary);
+}
+
+/* 화수 배지 — 모노스페이스, 실제 순서 정보를 담고 있어 장식이 아님 */
+.ep-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 7px;
+}
+
+.meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* 글 목록 카드 */
+.post-item {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-item:first-child {
+  padding-top: 0;
+}
+
+.post-item h2 {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 8px 0 6px;
+}
+
+.post-item p {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin: 0 0 8px;
+  line-height: 1.6;
+}
+
+/* 글 본문 */
+article img {
+  max-width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+article pre {
+  background: #1b1b18;
+  color: #e4e2da;
+  padding: 14px 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+article code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--border);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+article pre code {
+  background: none;
+  padding: 0;
+}
+
+article h2 {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 2.2em;
+}
+
+article h3 {
+  font-family: var(--sans);
+  font-size: 17.5px;
+  font-weight: 600;
+}
+
+/* 이전/다음 화 이동 */
+.ep-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--border);
+  font-family: var(--sans);
+  font-size: 14px;
+}
+
+.site-footer {
+  margin-top: 4em;
+  padding: 2em 0;
+  border-top: 1px solid var(--border);
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text-secondary);
+}

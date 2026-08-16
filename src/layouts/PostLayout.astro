@@ -1,0 +1,47 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  pubDate: Date;
+  episode?: number;
+  tags?: string[];
+  prev?: { slug: string; title: string } | null;
+  next?: { slug: string; title: string } | null;
+}
+
+const { title, description, pubDate, episode, tags = [], prev, next } = Astro.props;
+
+const dateStr = pubDate.toISOString().slice(0, 10);
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <p class="meta">
+      {episode !== undefined && <span class="ep-badge">{episode}화</span>}
+      <span> {dateStr}</span>
+    </p>
+    <h1 style="font-size: 26px; margin: 10px 0 26px;">{title}</h1>
+    <slot />
+
+    {tags.length > 0 && (
+      <p style="margin-top: 2.5em;">
+        {tags.map((t) => (
+          <a href={`/tags/${encodeURIComponent(t)}/`} class="ep-badge" style="margin-right: 6px;">#{t}</a>
+        ))}
+      </p>
+    )}
+
+    {(prev || next) && (
+      <nav class="ep-nav">
+        <span>
+          {prev ? <a href={`/posts/${prev.slug}/`}>← {prev.title}</a> : ""}
+        </span>
+        <span>
+          {next ? <a href={`/posts/${next.slug}/`}>{next.title} →</a> : ""}
+        </span>
+      </nav>
+    )}
+  </article>
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SERIES } from "../../series";
+
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+
+const withCounts = SERIES.map((s) => ({
+  ...s,
+  count: posts.filter((p) => p.data.series === s.id).length,
+}));
+---
+
+<BaseLayout title="연재">
+  <p style="font-size: 22px; font-weight: 600; margin: 0 0 1.5em;">연재</p>
+
+  <div>
+    {withCounts.map((s) => (
+      <div class="post-item">
+        <p class="meta">
+          <span class="ep-badge">{s.ongoing ? "연재 중" : "완결"}</span>
+          <span> 전체 {s.count}편</span>
+        </p>
+        <h2><a href={`/series/${s.id}/`}>{s.name}</a></h2>
+        <p>{s.description}</p>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

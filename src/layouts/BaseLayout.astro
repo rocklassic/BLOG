@@ -1,0 +1,42 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "" } = Astro.props;
+---
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · insoon.dev</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">insoon.dev</a>
+        <nav>
+          <a href="/series/">연재</a>
+          <a href="/tags/">태그</a>
+          <a href="/about/">소개</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap" style="padding-top: 2em; padding-bottom: 2em;">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>변호사입니다. 사건 상담은 받지 않습니다.</p>
+      </div>
+    </footer>
+  </body>
+</html>

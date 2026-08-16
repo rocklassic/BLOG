@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+
+  return posts.map((post) => {
+    let prev = null;
+    let next = null;
+
+    if (post.data.series) {
+      const series = posts
+        .filter((p) => p.data.series === post.data.series)
+        .sort((a, b) => (a.data.episode ?? 0) - (b.data.episode ?? 0));
+      const i = series.findIndex((p) => p.id === post.id);
+      if (i > 0) {
+        const p = series[i - 1];
+        prev = { slug: p.id, title: p.data.title };
+      }
+      if (i >= 0 && i < series.length - 1) {
+        const p = series[i + 1];
+        next = { slug: p.id, title: p.data.title };
+      }
+    }
+
+    return {
+      params: { slug: post.id },
+      props: { post, prev, next },
+    };
+  });
+}
+
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout
+  title={post.data.title}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  episode={post.data.episode}
+  tags={post.data.tags}
+  prev={prev}
+  next={next}
+>
+  <Content />
+</PostLayout>

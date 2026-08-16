@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SERIES } from "../../series";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  return SERIES.map((s) => ({
+    params: { series: s.id },
+    props: {
+      info: s,
+      posts: posts
+        .filter((p) => p.data.series === s.id)
+        .sort((a, b) => (a.data.episode ?? 0) - (b.data.episode ?? 0)),
+    },
+  }));
+}
+
+const { info, posts } = Astro.props;
+---
+
+<BaseLayout title={info.name} description={info.description}>
+  <p class="meta" style="margin-bottom: 6px;"><a href="/series/">← 연재 전체</a></p>
+  <p style="font-size: 22px; font-weight: 600; margin: 0 0 8px;">{info.name}</p>
+  <p style="color: var(--text-secondary); margin: 0 0 2em;">
+    {info.description} · 전체 {posts.length}편
+  </p>
+
+  <div>
+    {posts.map((post) => (
+      <div class="post-item">
+        <p class="meta">
+          {post.data.episode !== undefined && (
+            <span class="ep-badge">{post.data.episode}화</span>
+          )}
+          <span> {post.data.pubDate.toISOString().slice(0, 10)}</span>
+        </p>
+        <h2><a href={`/posts/${post.id}/`}>{post.data.title}</a></h2>
+        <p>{post.data.description}</p>
+      </div>
+    ))}
+  </div>
+</BaseLayout>
