@@ -1,7 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getSeries } from "../series";
+import { getSeries, getBadgeColor } from "../series";
+import { postUrl } from "../lib/post";
 
 const all = await getCollection("posts", ({ data }) => !data.draft);
 const recent = all
@@ -18,18 +19,23 @@ const recent = all
   </p>
 
   <div>
-    {recent.map((post) => (
-      <div class="post-item">
-        <p class="meta">
-          {post.data.episode !== undefined && (
-            <span class="ep-badge">{getSeries(post.data.series)?.badge} {post.data.episode}화</span>
-          )}
-          <span> {post.data.pubDate.toISOString().slice(0, 10)}</span>
-        </p>
-        <h2><a href={`/posts/${post.id}/`}>{post.data.title}</a></h2>
-        <p>{post.data.description}</p>
-      </div>
-    ))}
+    {recent.map((post) => {
+      const color = getBadgeColor(post.data.series);
+      return (
+        <div class="post-item">
+          <p class="meta">
+            {post.data.episode !== undefined && (
+              <span class="ep-badge" style={`background-color:${color.bg}; color:${color.text}; border-color:${color.bg};`}>
+                {getSeries(post.data.series)?.badge} {post.data.episode}화
+              </span>
+            )}
+            <span> {post.data.pubDate.toISOString().slice(0, 10)}</span>
+          </p>
+          <h2><a href={postUrl(post)}>{post.data.title}</a></h2>
+          <p>{post.data.description}</p>
+        </div>
+      );
+    })}
   </div>
 
   <p style="margin-top: 2em;">

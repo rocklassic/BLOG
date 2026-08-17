@@ -1,7 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { SERIES } from "../../series";
+import { SERIES, getBadgeColor } from "../../series";
+import { postUrl } from "../../lib/post";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -17,6 +18,7 @@ export async function getStaticPaths() {
 }
 
 const { info, posts } = Astro.props;
+const color = getBadgeColor(info.id);
 ---
 
 <BaseLayout title={info.name} description={info.description}>
@@ -31,11 +33,13 @@ const { info, posts } = Astro.props;
       <div class="post-item">
         <p class="meta">
           {post.data.episode !== undefined && (
-            <span class="ep-badge">{info.badge} {post.data.episode}화</span>
+            <span class="ep-badge" style={`background-color:${color.bg}; color:${color.text}; border-color:${color.bg};`}>
+              {info.badge} {post.data.episode}화
+            </span>
           )}
           <span> {post.data.pubDate.toISOString().slice(0, 10)}</span>
         </p>
-        <h2><a href={`/posts/${post.id}/`}>{post.data.title}</a></h2>
+        <h2><a href={postUrl(post)}>{post.data.title}</a></h2>
         <p>{post.data.description}</p>
       </div>
     ))}

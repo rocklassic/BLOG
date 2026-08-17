@@ -4,7 +4,9 @@
       "Bash(npx astro *)",
       "Bash(npm run *)",
       "Bash(grep -o 'ep-nav.\\\\{0,200\\\\}' dist/posts/29-한국-법률-ai-벤치마크에는-무엇이-있을까/index.html)",
-      "Bash(grep -o 'ep-nav.\\\\{0,200\\\\}' \"dist/posts/ai의-노가다는-어떻게-통찰이-되는가-ai가-50년-묵은-수학-난제를-풀었다/index.html\")"
+      "Bash(grep -o 'ep-nav.\\\\{0,200\\\\}' \"dist/posts/ai의-노가다는-어떻게-통찰이-되는가-ai가-50년-묵은-수학-난제를-풀었다/index.html\")",
+      "Bash(grep -o 'ep-nav\">.\\\\{0,250\\\\}' dist/29/index.html)",
+      "Bash(grep -o 'ep-nav\">.\\\\{0,250\\\\}' dist/0/index.html)"
     ]
   }
 }

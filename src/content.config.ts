@@ -9,6 +9,7 @@ const posts = defineCollection({
     description: z.string().default(""),
     tags: z.array(z.string()).default([]),
     series: z.string().optional(),
+    seriesPrefix: z.string().default(""),
     episode: z.number().optional(),
     draft: z.boolean().default(false),
   }),

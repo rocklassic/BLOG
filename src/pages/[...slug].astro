@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
-import PostLayout from "../../layouts/PostLayout.astro";
+import PostLayout from "../layouts/PostLayout.astro";
+import { postSlug } from "../lib/post";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -16,16 +17,16 @@ export async function getStaticPaths() {
       const i = series.findIndex((p) => p.id === post.id);
       if (i > 0) {
         const p = series[i - 1];
-        prev = { slug: p.id, title: p.data.title };
+        prev = { slug: postSlug(p), title: p.data.title };
       }
       if (i >= 0 && i < series.length - 1) {
         const p = series[i + 1];
-        next = { slug: p.id, title: p.data.title };
+        next = { slug: postSlug(p), title: p.data.title };
       }
     }
 
     return {
-      params: { slug: post.id },
+      params: { slug: postSlug(post) },
       props: { post, prev, next },
     };
   });
