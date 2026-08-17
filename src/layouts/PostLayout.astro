@@ -16,7 +16,7 @@ const { title, description, pubDate, episode, tags = [], prev, next } = Astro.pr
 const dateStr = pubDate.toISOString().slice(0, 10);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} ogType="article">
   <article>
     <p class="meta">
       {episode !== undefined && <span class="ep-badge">{episode}화</span>}
