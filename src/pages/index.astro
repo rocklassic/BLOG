@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getSeries } from "../series";
 
 const all = await getCollection("posts", ({ data }) => !data.draft);
 const recent = all
@@ -21,7 +22,7 @@ const recent = all
       <div class="post-item">
         <p class="meta">
           {post.data.episode !== undefined && (
-            <span class="ep-badge">{post.data.episode}화</span>
+            <span class="ep-badge">{getSeries(post.data.series)?.badge} {post.data.episode}화</span>
           )}
           <span> {post.data.pubDate.toISOString().slice(0, 10)}</span>
         </p>

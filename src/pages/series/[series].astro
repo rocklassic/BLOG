@@ -31,7 +31,7 @@ const { info, posts } = Astro.props;
       <div class="post-item">
         <p class="meta">
           {post.data.episode !== undefined && (
-            <span class="ep-badge">{post.data.episode}화</span>
+            <span class="ep-badge">{info.badge} {post.data.episode}화</span>
           )}
           <span> {post.data.pubDate.toISOString().slice(0, 10)}</span>
         </p>

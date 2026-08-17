@@ -1,17 +1,20 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import { getSeries } from "../series";
 
 interface Props {
   title: string;
   description?: string;
   pubDate: Date;
+  series?: string;
   episode?: number;
   tags?: string[];
   prev?: { slug: string; title: string } | null;
   next?: { slug: string; title: string } | null;
 }
 
-const { title, description, pubDate, episode, tags = [], prev, next } = Astro.props;
+const { title, description, pubDate, series, episode, tags = [], prev, next } = Astro.props;
+const badge = getSeries(series)?.badge;
 
 const dateStr = pubDate.toISOString().slice(0, 10);
 ---
@@ -19,7 +22,7 @@ const dateStr = pubDate.toISOString().slice(0, 10);
 <BaseLayout title={title} description={description} ogType="article">
   <article>
     <p class="meta">
-      {episode !== undefined && <span class="ep-badge">{episode}화</span>}
+      {episode !== undefined && <span class="ep-badge">{badge} {episode}화</span>}
       <span> {dateStr}</span>
     </p>
     <h1 style="font-size: 26px; margin: 10px 0 26px;">{title}</h1>
